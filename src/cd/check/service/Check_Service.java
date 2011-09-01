@@ -29,6 +29,7 @@ public class Check_Service {
 		
 		LogCheck lc = new LogCheck();
 		
+		// 2g 指标上传
 		//7.6.2 渠道类综合统计
 		Map<String, Integer>  _762 = new HashMap<String, Integer>();
 		_762.put("M_2g_7_6_2_02", lc.check(conn, TimeFormat.MONTH, time, Check.M_2g_7_6_2_02));
@@ -47,6 +48,7 @@ public class Check_Service {
 		_2g83.put("M_2g_8_3", lc.check(conn, TimeFormat.MONTH, time, Check.M_2g_8_3));
 		result.add(_2g83);
 		
+		//3g 指标上传
 		//7.2.1.5 无线上网卡业务
 		Map<String, Integer>  _7215 = new HashMap<String, Integer>();
 		_7215.put("M_3g_7_2_1_5_02", lc.check(conn, TimeFormat.MONTH, time, Check.M_3g_7_2_1_5_02));
@@ -117,6 +119,58 @@ public class Check_Service {
 		_82.put("M_3g_8_2_02", lc.check(conn, TimeFormat.MONTH, time, Check.M_3g_8_2_02));
 		_82.put("M_3g_8_2_03", lc.check(conn, TimeFormat.MONTH, time, Check.M_3g_8_2_03));
 		result.add(_82);
+		
+		//纵向数据接口
+		//3.1.1.5 订购实例资源属性(日)
+		Map<String, Integer> _3115 = new HashMap<String, Integer>();
+		_3115.put("M_ZX_3_1_1_5", lc.check(conn, TimeFormat.DAY, null, Check.M_ZX_3_1_1_5));
+		result.add(_3115);
+		
+		//4.1.1.1 客户
+		Map<String, Integer> _4111 = new HashMap<String, Integer>();
+		_4111.put("M_ZX_4_1_1_1", lc.check(conn, TimeFormat.MONTH, time, Check.M_ZX_4_1_1_1));
+		result.add(_4111);
+		
+		//4.1.1.2 组织客户
+		Map<String, Integer> _4112 = new HashMap<String, Integer>();
+		_4112.put("M_ZX_4_1_1_2", lc.check(conn, TimeFormat.MONTH, time, Check.M_ZX_4_1_1_2));
+		result.add(_4112);
+		
+		//4.1.1.3 个人客户
+		Map<String, Integer> _4113 = new HashMap<String, Integer>();
+		_4113.put("M_ZX_4_1_1_3", lc.check(conn, TimeFormat.MONTH, time, Check.M_ZX_4_1_1_3));
+		result.add(_4113);
+		
+		//4.1.1.6 客户证件信息
+		Map<String, Integer> _4116 = new HashMap<String, Integer>();
+		_4116.put("M_ZX_4_1_1_6", lc.check(conn, TimeFormat.MONTH, time, Check.M_ZX_4_1_1_6));
+		result.add(_4116);
+		
+		//4.3.1.1 渠道信息
+		Map<String, Integer> _4311 = new HashMap<String, Integer>();
+		_4311.put("M_ZX_4_3_1_1", lc.check(conn, TimeFormat.MONTH, time, Check.M_ZX_4_3_1_1));
+		result.add(_4311);
+		
+		//4.3.1.2 渠道佣金
+		Map<String, Integer> _4312 = new HashMap<String, Integer>();
+		_4312.put("M_ZX_4_3_1_2", lc.check(conn, TimeFormat.MONTH, time, Check.M_ZX_4_3_1_2));
+		result.add(_4312);
+		
+		//4.8.1.1 号码资源表
+		Map<String, Integer> _4811 = new HashMap<String, Integer>();
+		_4811.put("M_ZX_4_8_1_1", lc.check(conn, TimeFormat.MONTH, time, Check.M_ZX_4_8_1_1));
+		result.add(_4811);
+		
+		//3G核心明细数据
+		//3.1.3.1. 渠道信息表
+		Map<String, Integer> _3131 = new HashMap<String, Integer>();
+		_3131.put("M_3GMX_3_1_3_1", lc.check(conn, TimeFormat.MONTH, time, Check.M_3GMX_3_1_3_1));
+		result.add(_3131);
+		
+		//3.4.1. 扇区信息
+		Map<String, Integer> _341 = new HashMap<String, Integer>();
+		_341.put("M_3GMX_3_4_1", lc.check(conn, TimeFormat.MONTH, time, Check.M_3GMX_3_4_1));
+		result.add(_341);
 		
 		DB2Factory.closeConn(conn);
 		

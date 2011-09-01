@@ -18,7 +18,7 @@ public class CheckProcedure {
 		for(Map<String, Integer> map : result){
 			Set<String> keys = map.keySet();
 			for(String key : keys){
-				log.info(key + " -- " + map.get(key));
+				log.warn(key + " -- " + map.get(key));
 			}
 		}
 	}
