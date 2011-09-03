@@ -3,6 +3,8 @@ package cd.precheck.service;
 import java.sql.Connection;
 import org.apache.log4j.Logger;
 
+import cd.check.service.Check_Service;
+import cd.check.service.ProcId;
 import cd.db2.DB2Factory;
 import cd.precheck.sql.M_3g_7_2_1_6_sql;
 import cd.util.check.LogCheck;
@@ -21,8 +23,11 @@ public class M_3g_7_2_1_6_service {
 	public boolean precheck(String time){
 	
 		// 7.2.1.6 必须先运行 P_MID_M_3G_WIRELESS_INDEX
-		P_MID_M_3G_WIRELESS_INDEX_service p = new P_MID_M_3G_WIRELESS_INDEX_service();
-		if(!p.precheck(time)){
+		Check_Service cs = new Check_Service();
+		int statusId = cs.checkSingle(ProcId.P_MID_M_3G_WIRELESS_INDEX, TimeFormat.MONTH, time);
+		if(statusId != 1){
+			log.warn(" 7.2.1.6 定制专用无线上网卡发展月报 REPORT.P_ZB_DEV_M_3G_14_02 [不]满足运行条件!");
+			log.warn("		原因:MID.P_MID_M_3G_WIRELESS_INDEX " + LogCheck.getStatus(statusId));
 			return false;
 		}
 		

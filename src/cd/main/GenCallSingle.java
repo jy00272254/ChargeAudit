@@ -10,17 +10,17 @@ import java.util.GregorianCalendar;
  * @author Administrator
  *
  */
-public class GenCall {
+public class GenCallSingle {
 
 	public static void main(String[] args) {
 		//存储过程名
 		String procname = "\"DM\".\"P_DM_D_3G_SCHOOL_CARD_STAT\"";
 		//开始日期
-		String begin = "20110811";
+		String begin = "201108";
 		//结束日期
-		String end = "20110823";
+		String end = "201108";
 		//日期类型 年 y 月 m 日 d
-		String type = "d";
+		String type = "m";
 		sysoutCall(begin, end, procname, type);
 	}
 	

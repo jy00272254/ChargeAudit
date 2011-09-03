@@ -113,4 +113,21 @@ public class LogCheck {
 		} 
 		return result;
 	}
+	
+	/**
+	 * 通过状态ID判断状态情况
+	 * @param statusId
+	 * @return
+	 */
+	public static String getStatus(int statusId){
+		String result = null;
+		switch(statusId){
+		case -1	:	 result = "执行失败"; break;
+		case 0	:	 result = "未执行"; break;
+		case 1	:	 result = "执行成功"; break;
+		case 2	:	 result = "正在执行中"; break;
+		default : result = "未知状态";break;
+		}
+		return result;
+	}
 }

@@ -24,10 +24,10 @@ public class ImportNumberIntoDB2 {
 	public static void main(String[] args) {
 		
 		//DB2库中对应表名
-		String tableName = "DM.DM_TEMP_NEED_EXCEPT_CD";
+		String tableName = "MID.MID_TEMP_BAZHONG_USERNAME_TEMP1";
 	
 		//需要导入手机号码的文件夹或文件名(若为文件名,必须添加后缀名)
-		String targetFileName = "X:\\工作资料\\20110815_临时需求-8月2G转3G目标用户提取\\需要剔除的号码";
+		String targetFileName = "X:\\工作资料\\20110902_补充统计！临时需求-巴中分公司7月3G手机三无用户专题分析数据\\：巴中分公司7月3G手机三无用户名称信息.xls";
 		
 		List<String> fileNames = new ArrayList<String>();
 		

@@ -1,10 +1,12 @@
 package cd.check.service;
 
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -17,7 +19,63 @@ public class Check_Service {
 
 	private static Logger log = Logger.getLogger(Check_Service.class);
 	
-	public List<Map<String, Integer>> check(String time){
+	/**
+	 * 检测指定的过程运行状态
+	 * @param procId
+	 * @param time
+	 * @return
+	 */
+	public Integer checkSingle(String procId, String timeFormat, String time){
+		
+		// 存储过程ID和日期格式不能为空
+		if(procId == null || "".equals(procId)
+				|| time == null || "".equals(time))
+			return null;
+		
+		// 存储过程ID必须存在在集合中
+		Map<String, String> all = ProcId.all();
+		Set<String> keys = all.keySet();
+		String procName = null;
+		for(String key : keys){
+			if(procId.equals(key)){
+				procName = all.get(key);
+				break;
+			}
+		}
+		if(procName == null)
+			return null;
+		
+
+		Connection conn = DB2Factory.getConn();
+		if(conn == null){
+			log.warn("数据库连接获取失败!");
+			return null;
+		}
+		
+		String sql = null;
+		try {
+			Field field = Class.forName("cd.check.sql.Check").getField(procName);
+			sql = (String) field.get(Class.forName("cd.check.sql.Check").newInstance());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		LogCheck lc = new LogCheck();
+		
+		int result = lc.check(conn, timeFormat, time, sql);
+		
+		DB2Factory.closeConn(conn);
+		
+		return result;
+	
+	}
+	
+	/**
+	 * 检测所有的进程运行状态
+	 * @param time
+	 * @return
+	 */
+	public List<Map<String, Integer>> checkAll(String time){
 		Connection conn = DB2Factory.getConn();
 		
 		if(conn == null){
@@ -175,5 +233,16 @@ public class Check_Service {
 		DB2Factory.closeConn(conn);
 		
 		return result;
+	}
+	
+	
+	public static void main(String[] args) {
+		try {
+			Field field = Class.forName("cd.check.sql.Check").getField("M_3GMX_3_1_3_1");
+			String sql = (String) field.get(Class.forName("cd.check.sql.Check").newInstance());
+			System.out.println(sql);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

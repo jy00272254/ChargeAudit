@@ -3,6 +3,8 @@ package cd.precheck.service;
 import java.sql.Connection;
 import org.apache.log4j.Logger;
 
+import cd.check.service.Check_Service;
+import cd.check.service.ProcId;
 import cd.db2.DB2Factory;
 import cd.precheck.sql.M_3g_7_5_1_6_sql;
 import cd.util.check.LogCheck;
@@ -20,10 +22,14 @@ public class M_3g_7_5_1_6_service {
 	
 	public boolean precheck(String time){
 		
-		boolean flag3 = false;
 		//该过程必须前置过程 7.5.1.5 运行后才能运行
-		M_3g_7_5_1_5_service _7515 = new M_3g_7_5_1_5_service();
-		flag3 = _7515.precheck(time);
+		Check_Service cs = new Check_Service();
+		int statusId = cs.checkSingle(ProcId.M_3g_7_5_1_5, TimeFormat.MONTH, time);
+		if(statusId != 1){
+			log.warn(" 7.5.1.6 渠道佣金类月报 REPORT.P_ZB_CHANNEL_M_3G_06_02 [不]满足运行条件!");
+			log.warn("		原因:7.5.1.5 REPORT.P_ZB_CHANNEL_M_3G_05_02 " + LogCheck.getStatus(statusId));
+			return false;
+		}
 		
 		Connection conn = DB2Factory.getConn();
 		if(conn == null)
@@ -57,12 +63,18 @@ public class M_3g_7_5_1_6_service {
 		
 		DB2Factory.closeConn(conn);
 		
-		boolean flag = flag1 && flag2 && flag3 && flag4 && flag5 && flag6 && flag7;
+		boolean flag = flag1 && flag2 && flag4 && flag5 && flag6 && flag7;
 		if(flag)
 			log.warn(" 7.5.1.6 渠道佣金类月报 REPORT.P_ZB_CHANNEL_M_3G_06_02 [已]满足运行条件!");
 		else
 			log.warn(" 7.5.1.6 渠道佣金类月报 REPORT.P_ZB_CHANNEL_M_3G_06_02 [不]满足运行条件!");
 		
 		return flag;
+	}
+	
+	public static void main(String[] args) {
+		M_3g_7_5_1_6_service _7516 = new M_3g_7_5_1_6_service();
+		boolean result = _7516.precheck("201108");
+		log.warn(result);
 	}
 }

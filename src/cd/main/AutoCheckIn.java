@@ -11,18 +11,18 @@ public class AutoCheckIn {
 
 	public static void main(String[] args) {
 		
-		log.info("自动打卡监控开始.....");
+		log.warn("自动打卡监控开始.....");
 		while(true){
 			
 			if(System.currentTimeMillis() >= 1314923400671l){
-				log.info("时间满足要求,打开开始....");
+				log.warn("时间满足要求,打开开始....");
 				DefaultHttpClient httpClient = new DefaultHttpClient();
 				new Client(httpClient, "chengding", "123456").checkIn();
-				log.info("时间满足要求,打开成功....");
+				log.warn("时间满足要求,打开成功....");
 				break;
 			}
 			
-			log.info("时间未到,延迟1分钟...");
+			log.warn("时间未到,延迟1分钟...");
 			try {
 				Thread.sleep(100000);
 			} catch (InterruptedException e) {

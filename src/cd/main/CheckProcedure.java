@@ -14,7 +14,7 @@ public class CheckProcedure {
 	
 	public static void main(String[] args) {
 		Check_Service cs = new Check_Service();
-		List<Map<String, Integer>> result = cs.check("201108");
+		List<Map<String, Integer>> result = cs.checkAll("201108");
 		for(Map<String, Integer> map : result){
 			Set<String> keys = map.keySet();
 			for(String key : keys){
