@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 
 import cd.bean.P_Log;
+import cd.db2.DB2Factory;
 import cd.util.time.GetTime;
 import cd.util.time.TimeFormat;
 
@@ -15,7 +16,14 @@ public class LogCheck {
 
 	private static Logger log = Logger.getLogger(LogCheck.class);
 
-	public int check(Connection conn, String timeFormat, String time, String sql) {
+	public int check(String time, String sql) {
+		return check(TimeFormat.MONTH, time, sql);
+	}
+	
+	public int check(String timeFormat, String time, String sql) {
+		
+		Connection conn = DB2Factory.getConn();
+		
 		P_Log p_log = get_P_Log(conn, timeFormat, time, sql);
 		log.info(sql);
 		log.info("查询到的日志内容为: " + p_log);
@@ -25,7 +33,11 @@ public class LogCheck {
 		case 0 : log.info("未执行");break;
 		case 1: log.info("执行成功");break;
 		case 2 : log.info("正在执行中");break;
+		default : log.info("未知状态"); break;
 		}
+		
+		DB2Factory.closeConn(conn);
+		
 		return result;
 	}
 	
@@ -37,8 +49,8 @@ public class LogCheck {
 	 * @param sql
 	 * @return
 	 */
-	public boolean check_success(Connection conn, String timeFormat, String time, String sql) {
-		return check(conn, timeFormat, time, sql) == 1;
+	public boolean check_success(String timeFormat, String time, String sql) {
+		return check(timeFormat, time, sql) == 1;
 	}
 
 	/**

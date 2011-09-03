@@ -1,11 +1,9 @@
 package cd.precheck.service;
 
-import java.sql.Connection;
 import org.apache.log4j.Logger;
 
 import cd.check.service.Check_Service;
 import cd.check.service.ProcId;
-import cd.db2.DB2Factory;
 import cd.precheck.sql.M_3g_7_5_1_6_sql;
 import cd.util.check.LogCheck;
 import cd.util.time.TimeFormat;
@@ -31,37 +29,31 @@ public class M_3g_7_5_1_6_service {
 			return false;
 		}
 		
-		Connection conn = DB2Factory.getConn();
-		if(conn == null)
-			return false;
-		
 		LogCheck pm = new LogCheck();
 		
 		String sql = M_3g_7_5_1_6_sql.PRECHECK_REPORT_P_ZB_CHANNEL_M_3G_06_02_01;
-		boolean flag1 = pm.check_success(conn, TimeFormat.MONTH, time, sql);
+		boolean flag1 = pm.check_success( TimeFormat.MONTH, time, sql);
 		log.info((flag1 ? "通过" : "未通过")	+" -- " + sql);
 		
 		sql = M_3g_7_5_1_6_sql.PRECHECK_REPORT_P_ZB_CHANNEL_M_3G_06_02_02;
-		boolean flag2 = pm.check_success(conn, TimeFormat.MONTH, time, sql);
+		boolean flag2 = pm.check_success( TimeFormat.MONTH, time, sql);
 		log.info((flag2 ? "通过" : "未通过")	+" -- " + sql);
 		
 		sql = M_3g_7_5_1_6_sql.PRECHECK_REPORT_P_ZB_CHANNEL_M_3G_06_02_03;
-		boolean flag4 = pm.check_success(conn, TimeFormat.MONTH, time, sql);
+		boolean flag4 = pm.check_success( TimeFormat.MONTH, time, sql);
 		log.info((flag4 ? "通过" : "未通过")	+" -- " + sql);
 		
 		sql = M_3g_7_5_1_6_sql.PRECHECK_REPORT_P_ZB_CHANNEL_M_3G_06_02_04;
-		boolean flag5 = pm.check_success(conn, TimeFormat.MONTH, time, sql);
+		boolean flag5 = pm.check_success( TimeFormat.MONTH, time, sql);
 		log.info((flag5 ? "通过" : "未通过")	+" -- " + sql);
 		
 		sql = M_3g_7_5_1_6_sql.PRECHECK_REPORT_P_ZB_CHANNEL_M_3G_06_02_05;
-		boolean flag6 = pm.check_success(conn, TimeFormat.MONTH, time, sql);
+		boolean flag6 = pm.check_success( TimeFormat.MONTH, time, sql);
 		log.info((flag6 ? "通过" : "未通过")	+" -- " + sql);
 		
 		sql = M_3g_7_5_1_6_sql.PRECHECK_REPORT_P_ZB_CHANNEL_M_3G_06_02_06;
-		boolean flag7 = pm.check_success(conn, TimeFormat.MONTH, time, sql);
+		boolean flag7 = pm.check_success( TimeFormat.MONTH, time, sql);
 		log.info((flag7 ? "通过" : "未通过")	+" -- " + sql);
-		
-		DB2Factory.closeConn(conn);
 		
 		boolean flag = flag1 && flag2 && flag4 && flag5 && flag6 && flag7;
 		if(flag)
