@@ -24,7 +24,34 @@ public class Test {
 //		
 //		System.out.println(c.getTimeInMillis());
 		
-		ProcId.all();
+//		ProcId.all();
+		
+		System.out.println(13186998 - 13186998);
+		
+		
+//		String str = "SELECT "+
+//	"* "+
+//"FROM  "+
+//		"(SELECT dinner_type,total_call_users  "+
+//		"FROM REPORT.REPORT_D_ZB_DEV_3G_01_02  "+
+//		"WHERE day_no = to_char(to_date('?','yyyymmdd') - 1 days, 'yyyymmdd')) a "+
+//	"INNER JOIN "+
+//		"(SELECT dinner_type,total_call_users  "+
+//		"FROM REPORT.REPORT_D_ZB_DEV_3G_01_02  "+
+//		"WHERE day_no = '?') b "+
+//	"ON "+
+//		"a.dinner_type=b.dinner_type "+
+//"WHERE "+
+//	"a.total_call_users > b.total_call_users;";
+//		
+//		
+//		System.out.println(str);
+		
+		for (int i = 4; i <= 100; i++) {
+			int cs = i - 2 ;
+			int result = 120*(cs*cs+cs*3);
+			System.out.println( i + " -- " + result + " -- " + result/60 + " -- " + result/60/24);
+		}
 	
 	}
 }
