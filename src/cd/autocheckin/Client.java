@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -14,10 +17,10 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
-
 import cd.util.regex.CustomRegex;
 import cd.util.time.GetTime;
 
@@ -27,6 +30,7 @@ public class Client {
 	private String username;
 	private String password;
 	private Logger log = Logger.getLogger(Client.class);
+	String[] dakaInfo = null;
 
 	public Client() {
 	}
@@ -37,12 +41,23 @@ public class Client {
 		this.password = password;
 	}
 
+	public static void main(String[] args) {
+		DefaultHttpClient httpClient = new DefaultHttpClient();
+		new Client(httpClient, "chengding", "123456").checkIn();
+	}
+	
 	public boolean checkIn() {
 		if (login()) {
 			log.warn("登录成功!");
+			//获取打卡前信息
 			displayHis();
+			//打卡
 			daka();
+			//判断打卡是否成功
+			judge();
+			//再次显示打卡信息
 			displayHis();
+			//注销登录
 			logout();
 			return true;
 		} else {
@@ -51,6 +66,9 @@ public class Client {
 		}
 	}
 
+	/**
+	 * 注销,退出打卡系统
+	 */
 	public void logout(){
 		HttpResponse response = null;
 		// 注销登录
@@ -66,6 +84,9 @@ public class Client {
 		} 
 	}
 	
+	/**
+	 * 打卡
+	 */
 	public void daka(){
 		HttpResponse response = null;
 		HttpEntity entity = null;
@@ -101,7 +122,10 @@ public class Client {
 		}
 	}
 	
-	public void displayHis() {
+	/**
+	 * 显示当前打卡消息,返回流用于判断打卡是否成功
+	 */
+	public String[] displayHis() {
 		// http://10.244.8.190:8081/oa/module/common/monthlist.do
 
 		HttpResponse response = null;
@@ -109,14 +133,22 @@ public class Client {
 		BufferedReader br = null;
 
 		// 通过访问登录后才能正常显示的页面来验证登录成功
-		HttpGet get = new HttpGet(
-				"http://10.244.8.190:8081/oa/module/common/monthlist.do");
+//		HttpGet get = new HttpGet("http://10.244.8.190:8081/oa/module/common/monthlist.do");
+		//公司的打卡系统的日期是按照 25-24号来的,用GET在特定几天不能取到时间.需要用POST指定时间
+		HttpPost post = new HttpPost("http://10.244.8.190:8081/oa/module/common/monthlist.do");
 		try {
-			response = httpClient.execute(get);
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			
+			params.add(new BasicNameValuePair("limit", "31"));
+			params.add(new BasicNameValuePair("month", GetTime.dakaMonth()));
+			params.add(new BasicNameValuePair("start", "0"));
+			
+			post.setEntity(new UrlEncodedFormEntity(params));
+			
+			response = httpClient.execute(post);
 
 			entity = response.getEntity();
-			br = new BufferedReader(new InputStreamReader(entity.getContent(),
-					"UTF-8"));
+			br = new BufferedReader(new InputStreamReader(entity.getContent(),"UTF-8"));
 
 			StringBuffer sb = new StringBuffer();
 			String str = null;
@@ -130,12 +162,16 @@ public class Client {
 							"username:'(.*?)',empno.*?,dakaDate:'"	
 							+ GetTime.today2()
 							+ "',date1:'(.*?)',.*?,date4:'(.*?)',");
-			
-			log.warn(
-					GetTime.today2()+
-					" -- [姓名] "+result.get(0).get(0) + 
-					" -- [上班打卡] " + result.get(0).get(1)	+ 
-					" -- [下班打卡] " + result.get(0).get(2) );
+			if(result.size() == 0){
+				log.warn("没有读取到打卡数据");
+			}else{
+				log.warn(
+						GetTime.today2()+
+						" -- [姓名] "+result.get(0).get(0) + 
+						" -- [上班打卡] " + result.get(0).get(1)	+ 
+						" -- [下班打卡] " + result.get(0).get(2));
+			}
+			dakaInfo = new String[]{result.get(0).get(1), result.get(0).get(2)};
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -147,6 +183,7 @@ public class Client {
 				}
 			}
 		}
+		return dakaInfo;
 	}
 
 	/**
@@ -154,8 +191,7 @@ public class Client {
 	 */
 	public boolean login() {
 
-		HttpPost post = new HttpPost(
-				"http://10.244.8.190:8081/oa/j_spring_security_check");
+		HttpPost post = new HttpPost("http://10.244.8.190:8081/oa/j_spring_security_check");
 		HttpResponse response = null;
 		HttpEntity entity = null;
 		boolean result = false;
@@ -172,13 +208,11 @@ public class Client {
 			EntityUtils.consume(response.getEntity());
 
 			// 通过访问登录后才能正常显示的页面来验证登录成功
-			HttpGet get = new HttpGet(
-					"http://10.244.8.190:8081/oa/module/common/main.jsp");
+			HttpGet get = new HttpGet("http://10.244.8.190:8081/oa/module/common/main.jsp");
 			response = httpClient.execute(get);
 
 			entity = response.getEntity();
-			br = new BufferedReader(new InputStreamReader(entity.getContent(),
-					"UTF-8"));
+			br = new BufferedReader(new InputStreamReader(entity.getContent(),"UTF-8"));
 
 			StringBuffer sb = new StringBuffer();
 			String str = null;
@@ -210,6 +244,49 @@ public class Client {
 				}
 			}
 		}
+		return result;
+	}
+	
+	/**
+	 * 用于判断打卡是否成功
+	 * @return
+	 */
+	public boolean judge(){
+		if(dakaInfo == null){
+			log.warn("打卡信息为空");
+			return false;
+		}
+		//通过时间判断是上班打卡还是下班打卡
+		int index = 0;
+		//设定上班打卡时间为 上午 8点到10点 在这个范围内为上班打卡
+		Calendar sStart = new GregorianCalendar();
+		sStart.set(sStart.get(Calendar.YEAR), 
+				sStart.get(Calendar.MONTH), 
+				sStart.get(Calendar.DAY_OF_MONTH), 
+				8, 0, 0);
+		
+		Calendar sEnd = new GregorianCalendar();
+		sEnd.set(sEnd.get(Calendar.YEAR), 
+				sEnd.get(Calendar.MONTH), 
+				sEnd.get(Calendar.DAY_OF_MONTH), 
+				10, 0, 0);
+		
+		Date curr = new Date();
+		//上班打卡
+		if(curr.getTime() >= sStart.getTimeInMillis()
+				&& curr.getTime() <= sEnd.getTimeInMillis()){
+			log.warn("当前时间为上班打卡!");
+			index = 0;
+		}else{
+			log.warn("当前时间为下班打卡!");
+			index = 1;
+		}
+		
+		String info = dakaInfo[index];
+		boolean result = !info.equals("--");
+		log.warn( result ? "打卡成功!" : "打卡失败!");
+		//清空打卡信息数组
+		dakaInfo = null;
 		return result;
 	}
 }

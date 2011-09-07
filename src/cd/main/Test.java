@@ -13,20 +13,20 @@ public class Test {
 		
 //		System.out.println(System.currentTimeMillis());
 //		
-//		Calendar c = new GregorianCalendar();
-//		
-//		c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)+1, 8, 30, 0);
-//		
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd HHmmss");
-//		System.out.println(sdf.format(c.getTime()));
-//		
-//		System.out.println(sdf.format(new Date(1314923400671l)));
-//		
-//		System.out.println(c.getTimeInMillis());
+		Calendar c = new GregorianCalendar();
+		
+		c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)+1, 8, 30, 0);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd HHmmss");
+		System.out.println(sdf.format(c.getTime()));
+		
+		System.out.println(sdf.format(new Date(1315441800312l)));
+		
+		System.out.println(c.getTimeInMillis());
 		
 //		ProcId.all();
 		
-		System.out.println(13186998 - 13186998);
+//		System.out.println(13186998 - 13186998);
 		
 		
 //		String str = "SELECT "+
@@ -47,11 +47,11 @@ public class Test {
 //		
 //		System.out.println(str);
 		
-		for (int i = 4; i <= 100; i++) {
-			int cs = i - 2 ;
-			int result = 120*(cs*cs+cs*3);
-			System.out.println( i + " -- " + result + " -- " + result/60 + " -- " + result/60/24);
-		}
+//		for (int i = 4; i <= 100; i++) {
+//			int cs = i - 2 ;
+//			int result = 120*(cs*cs+cs*3);
+//			System.out.println( i + " -- " + result + " -- " + result/60 + " -- " + result/60/24);
+//		}
 	
 	}
 }
