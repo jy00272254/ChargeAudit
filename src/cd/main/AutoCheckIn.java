@@ -7,6 +7,7 @@ import cd.autocheckin.Client;
 
 public class AutoCheckIn {
 	
+	
 	private static Logger log = Logger.getLogger(AutoCheckIn.class);
 
 	public static void main(String[] args) {
