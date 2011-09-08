@@ -7,6 +7,8 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import cd.util.time.TimeFormat;
+
 public class ReflectCheck {
 
 	private Logger log = Logger.getLogger(ReflectCheck.class);
@@ -39,7 +41,14 @@ public class ReflectCheck {
 			}
 			Set<String> keys = sqls.keySet();
 			for (String key : keys) {
-				int preFlag = pm.check(time, sqls.get(key));
+				int preFlag = 0;
+				//首先判断是不是日表,根据公司定义的规则,如果是日表那么必定会出现这个字段 "_D_"
+				// 通过正则表达式匹配.如果包含则转为日验证
+				if(procnames.get(key + "_PROCNAME").matches(".*?_D_.*?")){
+					preFlag = pm.check(TimeFormat.DAY, time, sqls.get(key));
+				}else{
+					preFlag = pm.check(time, sqls.get(key));
+				}
 				log.warn(tab+tab+procnames.get(key + "_PROCNAME") + tab+ tab + LogCheck.getStatus(preFlag));
 				preResult = preResult && preFlag == 1;
 			}

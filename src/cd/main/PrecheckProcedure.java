@@ -6,12 +6,12 @@ import cd.precheck.service.M_2g_7_6_2_service;
 import cd.precheck.service.M_2g_8_2_service;
 import cd.precheck.service.M_2g_8_3_service;
 import cd.precheck.service.M_3g_7_2_1_5_service_pre;
-import cd.precheck.service.M_3g_7_2_1_6_service;
-import cd.precheck.service.M_3g_7_2_3_1_service;
-import cd.precheck.service.M_3g_7_3_1_4_service;
-import cd.precheck.service.M_3g_7_3_1_5_service;
-import cd.precheck.service.M_3g_7_4_1_4_service;
-import cd.precheck.service.M_3g_7_5_1_3_service;
+import cd.precheck.service.M_3g_7_2_1_6_service_pre;
+import cd.precheck.service.M_3g_7_2_3_1_service_pre;
+import cd.precheck.service.M_3g_7_3_1_4_service_pre;
+import cd.precheck.service.M_3g_7_3_1_5_service_pre;
+import cd.precheck.service.M_3g_7_4_1_4_service_pre;
+import cd.precheck.service.M_3g_7_5_1_3_service_pre;
 import cd.precheck.service.M_3g_7_5_1_4_service;
 import cd.precheck.service.M_3g_7_5_1_5_service;
 import cd.precheck.service.M_3g_7_5_1_6_service;
@@ -30,27 +30,27 @@ public class PrecheckProcedure {
 		result = _7215.precheck(time);
 		log.warn(result);
 		
-		M_3g_7_2_1_6_service _7216 = new M_3g_7_2_1_6_service();
+		M_3g_7_2_1_6_service_pre _7216 = new M_3g_7_2_1_6_service_pre();
 		result = _7216.precheck(time);
 		log.warn(result);
 		
-		M_3g_7_2_3_1_service _7231 = new M_3g_7_2_3_1_service();
+		M_3g_7_2_3_1_service_pre _7231 = new M_3g_7_2_3_1_service_pre();
 		result = _7231.precheck(time);
 		log.warn(result);
 		
-		M_3g_7_3_1_4_service _7314 = new M_3g_7_3_1_4_service();
+		M_3g_7_3_1_4_service_pre _7314 = new M_3g_7_3_1_4_service_pre();
 		result = _7314.precheck(time);
 		log.warn(result);
 		
-		M_3g_7_3_1_5_service _7315 = new M_3g_7_3_1_5_service();
+		M_3g_7_3_1_5_service_pre _7315 = new M_3g_7_3_1_5_service_pre();
 		result = _7315.precheck(time);
 		log.warn(result);
 		
-		M_3g_7_4_1_4_service _7414 = new M_3g_7_4_1_4_service();
+		M_3g_7_4_1_4_service_pre _7414 = new M_3g_7_4_1_4_service_pre();
 		result = _7414.precheck(time);
 		log.warn(result);
 		
-		M_3g_7_5_1_3_service _7513 = new M_3g_7_5_1_3_service();
+		M_3g_7_5_1_3_service_pre _7513 = new M_3g_7_5_1_3_service_pre();
 		result = _7513.precheck(time);
 		log.warn(result);
 		
