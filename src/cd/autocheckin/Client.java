@@ -53,10 +53,10 @@ public class Client {
 			displayHis();
 			//打卡
 			daka();
-			//判断打卡是否成功
-			judge();
 			//再次显示打卡信息
 			displayHis();
+			//判断打卡是否成功
+			judge();
 			//注销登录
 			logout();
 			return true;

@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import cd.precheck.service.M_2g_7_6_2_service;
 import cd.precheck.service.M_2g_8_2_service;
 import cd.precheck.service.M_2g_8_3_service;
-import cd.precheck.service.M_3g_7_2_1_5_service;
+import cd.precheck.service.M_3g_7_2_1_5_service_pre;
 import cd.precheck.service.M_3g_7_2_1_6_service;
 import cd.precheck.service.M_3g_7_2_3_1_service;
 import cd.precheck.service.M_3g_7_3_1_4_service;
@@ -26,7 +26,7 @@ public class PrecheckProcedure {
 		String time = "201108";
 		boolean result = false;
 		
-		M_3g_7_2_1_5_service _7215 = new M_3g_7_2_1_5_service();
+		M_3g_7_2_1_5_service_pre _7215 = new M_3g_7_2_1_5_service_pre();
 		result = _7215.precheck(time);
 		log.warn(result);
 		
