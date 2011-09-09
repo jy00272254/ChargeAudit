@@ -12,6 +12,8 @@ public class AutoCheckIn {
 
 	public static void main(String[] args) {
 		
+		System.out.println();
+			
 		log.warn("自动打卡监控开始.....");
 		while(true){
 			
