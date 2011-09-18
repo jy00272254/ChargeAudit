@@ -3,6 +3,7 @@ package cd.autocheckin;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -53,11 +54,40 @@ public class Client {
 	
 	/**
 	 * 获取下次打卡时间
+	 * 得到的是代表时间的毫秒数
 	 * @return
 	 */
 	public long nextDakaTime(){
 		
-		return 0;
+		long result = 0;
+		
+		Calendar c = new GregorianCalendar();
+		//当前时间
+		long curr = c.getTimeInMillis(); 
+		c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), 8, 30, 0);
+		// 今天早上8点30分
+		long _0830 = c.getTimeInMillis();
+		c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), 18, 30, 0);
+		// 今天下午6点30分
+		long _1630 = c.getTimeInMillis();
+		c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)+1, 8, 30, 0);
+		// 明天早上8点30分
+		long _0830n = c.getTimeInMillis();
+		
+		// 如果当前时间小于早上8点30分,取得早上打卡时间
+		if(curr <= _0830){
+			result = _0830;
+		}
+		// 如果当前时间大于早上8点30分且小于下午6点30分,取得下午打卡时间
+		if(curr > _0830 && curr <= _1630){
+			result = _1630;
+		}
+		// 如果当前时间大于下午6点30分,取得明天早上8点30分打卡时间
+		if( curr > _1630){
+			result = _0830n;
+		}
+
+		return result;
 	}
 	
 	public boolean checkIn() {
