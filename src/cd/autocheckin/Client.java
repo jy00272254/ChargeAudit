@@ -24,6 +24,11 @@ import org.apache.log4j.Logger;
 import cd.util.regex.CustomRegex;
 import cd.util.time.GetTime;
 
+/**
+ * 自动打开程序.
+ * @author dingc
+ *
+ */
 public class Client {
 	
 	private HttpClient httpClient;
@@ -44,6 +49,15 @@ public class Client {
 	public static void main(String[] args) {
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 		new Client(httpClient, "chengding", "123456").checkIn();
+	}
+	
+	/**
+	 * 获取下次打卡时间
+	 * @return
+	 */
+	public long nextDakaTime(){
+		
+		return 0;
 	}
 	
 	public boolean checkIn() {
