@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -23,24 +22,24 @@ import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import cd.util.regex.CustomRegex;
 import cd.util.time.GetTime;
+import cd.util.time.SleepTime;
 
 /**
  * 自动打开程序.
  * @author dingc
  *
  */
-public class Client {
+public class Client_Enhance {
 	
 	private HttpClient httpClient;
 	private String username;
 	private String password;
-	private Logger log = Logger.getLogger(Client.class);
-	String[] dakaInfo = null;
+	private Logger log = Logger.getLogger(Client_Enhance.class);
 
-	public Client() {
+	public Client_Enhance() {
 	}
 
-	public Client(HttpClient httpClient, String username, String password) {
+	public Client_Enhance(HttpClient httpClient, String username, String password) {
 		this.httpClient = httpClient;
 		this.username = username;
 		this.password = password;
@@ -48,7 +47,7 @@ public class Client {
 
 	public static void main(String[] args) {
 		DefaultHttpClient httpClient = new DefaultHttpClient();
-		new Client(httpClient, "chengding", "123456").checkIn();
+		new Client_Enhance(httpClient, "chengding", "123456").checkIn();
 	}
 	
 	/**
@@ -85,28 +84,56 @@ public class Client {
 		if( curr > _1630){
 			result = _0830n;
 		}
-
 		return result;
 	}
 	
+	/**
+	 * 综合打卡
+	 * @return
+	 */
 	public boolean checkIn() {
-		if (login()) {
-			log.warn("登录成功!");
-			//获取打卡前信息
-			displayHis();
-			//打卡
-			daka();
-			//再次显示打卡信息
-			displayHis();
-			//判断打卡是否成功
-			judge();
-			//注销登录
-			logout();
-			return true;
-		} else {
-			log.warn("登录失败!");
-			return false;
+		
+		// 获得下次打卡时间
+		long nextDakaTime = nextDakaTime();
+		log.warn("获取下次打卡时间...");
+		// 获取当前时间
+		long currTime = System.currentTimeMillis();
+		// 判断时间是否到达打卡时间
+		log.warn("判断时间是否到达打卡时间...");
+		while(currTime < nextDakaTime){
+			//未到打卡时间,延迟时间
+			SleepTime.Sleep(120000);
+			currTime = System.currentTimeMillis();
+			log.warn("未到达打卡时间,延时...");
 		}
+		log.warn("到达打卡时间,登录系统...");
+		
+		// 到达打卡时间,登录系统
+		int loginCount = 0;
+		while(!login()){
+			log.warn("登录失败,延时后尝试重新登录,登录次数:" + (loginCount+1));
+			SleepTime.Sleep(5000);
+			loginCount ++ ;
+			if(loginCount >= 3){
+				log.warn("登录次数到达阈值,程序退出.");
+				return false;
+			}
+		}
+		log.warn("登录成功...");
+		
+		// 判断是否已经打卡
+		int displayHisCount = 0;
+		String[] dakaInfo = displayHis();
+		while(dakaInfo == null){
+			SleepTime.Sleep(5000);
+			displayHisCount ++;
+			if(loginCount >= 3){
+				log.warn("获取信息次数到达阈值,未获得打开信息,直接开始打卡...");
+				break;
+			}
+		}
+		
+		return false;
 	}
 
 	/**
@@ -174,6 +201,7 @@ public class Client {
 		HttpResponse response = null;
 		HttpEntity entity = null;
 		BufferedReader br = null;
+		String[] dakaInfo = null;
 
 		// 通过访问登录后才能正常显示的页面来验证登录成功
 //		HttpGet get = new HttpGet("http://10.244.8.190:8081/oa/module/common/monthlist.do");
@@ -213,8 +241,8 @@ public class Client {
 						" -- [姓名] "+result.get(0).get(0) + 
 						" -- [上班打卡] " + result.get(0).get(1)	+ 
 						" -- [下班打卡] " + result.get(0).get(2));
+				dakaInfo = new String[]{result.get(0).get(1), result.get(0).get(2)};
 			}
-			dakaInfo = new String[]{result.get(0).get(1), result.get(0).get(2)};
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -290,46 +318,4 @@ public class Client {
 		return result;
 	}
 	
-	/**
-	 * 用于判断打卡是否成功
-	 * @return
-	 */
-	public boolean judge(){
-		if(dakaInfo == null){
-			log.warn("打卡信息为空");
-			return false;
-		}
-		//通过时间判断是上班打卡还是下班打卡
-		int index = 0;
-		//设定上班打卡时间为 上午 8点到10点 在这个范围内为上班打卡
-		Calendar sStart = new GregorianCalendar();
-		sStart.set(sStart.get(Calendar.YEAR), 
-				sStart.get(Calendar.MONTH), 
-				sStart.get(Calendar.DAY_OF_MONTH), 
-				8, 0, 0);
-		
-		Calendar sEnd = new GregorianCalendar();
-		sEnd.set(sEnd.get(Calendar.YEAR), 
-				sEnd.get(Calendar.MONTH), 
-				sEnd.get(Calendar.DAY_OF_MONTH), 
-				10, 0, 0);
-		
-		Date curr = new Date();
-		//上班打卡
-		if(curr.getTime() >= sStart.getTimeInMillis()
-				&& curr.getTime() <= sEnd.getTimeInMillis()){
-			log.warn("当前时间为上班打卡!");
-			index = 0;
-		}else{
-			log.warn("当前时间为下班打卡!");
-			index = 1;
-		}
-		
-		String info = dakaInfo[index];
-		boolean result = !info.equals("--");
-		log.warn( result ? "打卡成功!" : "打卡失败!");
-		//清空打卡信息数组
-		dakaInfo = null;
-		return result;
-	}
 }
