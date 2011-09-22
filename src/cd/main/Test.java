@@ -20,7 +20,7 @@ public class Test {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd HHmmss");
 		System.out.println(sdf.format(c.getTime()));
 		
-		System.out.println(sdf.format(new Date(1315441800312l)));
+		System.out.println(sdf.format(new Date(1316651400890l)));
 		
 		System.out.println(c.getTimeInMillis());
 		
