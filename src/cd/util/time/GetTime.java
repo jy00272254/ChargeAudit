@@ -1,9 +1,12 @@
 package cd.util.time;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -75,5 +78,62 @@ public class GetTime {
 			log.warn("传入值不符合规则,例如:  20110808 (YYYYMMDD) ");
 			return null;
 		}
+	}
+	
+	public static List<String> fromTo(String from, String to, String m_d){
+		List<String> result = null;
+		try {
+			result = new ArrayList<String>();
+			
+			if("M".equals(m_d.toUpperCase())){
+				SimpleDateFormat sdf = new SimpleDateFormat(CURRMONTH);
+				sdf.parse(from);
+				sdf.parse(to);
+				Calendar fc = new GregorianCalendar(
+						Integer.valueOf(from.substring(0, 4)),
+						Integer.valueOf(from.substring(4, 6)) - 1,
+						1);
+				
+				Calendar tc = new GregorianCalendar(
+						Integer.valueOf(to.substring(0, 4)),
+						Integer.valueOf(to.substring(4, 6)) - 1,
+						1);
+				
+				if(fc.getTimeInMillis() > tc.getTimeInMillis())
+					return null;
+				
+				while(fc.getTimeInMillis() <= tc.getTimeInMillis()){
+					result.add(new SimpleDateFormat(CURRMONTH).format(new Date(fc.getTimeInMillis())));
+					fc.add(Calendar.MONTH, 1);
+				}
+			}else{
+				SimpleDateFormat sdf = new SimpleDateFormat(TODAY1);
+				sdf.parse(from);
+				sdf.parse(to);
+				Calendar fc = new GregorianCalendar(
+						Integer.valueOf(from.substring(0, 4)),
+						Integer.valueOf(from.substring(4, 6)) - 1,
+						Integer.valueOf(from.substring(6, 8)));
+				
+				Calendar tc = new GregorianCalendar(
+						Integer.valueOf(to.substring(0, 4)),
+						Integer.valueOf(to.substring(4, 6)) - 1,
+						Integer.valueOf(to.substring(6, 8)));
+				
+				if(fc.getTimeInMillis() > tc.getTimeInMillis())
+					return null;
+				
+				while(fc.getTimeInMillis() <= tc.getTimeInMillis()){
+					result.add(new SimpleDateFormat(TODAY1).format(new Date(fc.getTimeInMillis())));
+					fc.add(Calendar.DAY_OF_MONTH, 1);
+				}
+			}
+			
+		} catch (ParseException e) {
+			log.error("参数错误!");
+			return null;
+		}
+		
+		return result;
 	}
 }

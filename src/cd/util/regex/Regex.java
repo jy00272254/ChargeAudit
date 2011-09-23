@@ -22,6 +22,20 @@ public class Regex {
 	}
 	
 	/**
+	 * Æ¥ÅäÊı×Ö
+	 * @param lineStr
+	 * @return
+	 */
+	public static List<String> d(String lineStr) {
+		Pattern p = Pattern.compile("\\d+");
+		Matcher m = p.matcher(lineStr);
+		List<String> device_numbers = new ArrayList<String>();
+		while(m.find())
+			device_numbers.add(m.group());
+		return device_numbers;
+	}
+	
+	/**
 	 * Æ¥ÅäÊÖ»úºÅÂë
 	 * @param lineStr
 	 * @return

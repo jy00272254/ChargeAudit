@@ -1,5 +1,7 @@
 package cd.util.time;
 
+import java.util.List;
+
 import org.junit.Test;
 
 public class GetTimeTest {
@@ -22,5 +24,13 @@ public class GetTimeTest {
 	@Test
 	public void testYesterday(){
 		System.out.println(GetTime.yesterday());
+	}
+	
+	@Test
+	public void testFromTo(){
+		List<String> result = GetTime.fromTo("201108", "201205", "m");
+		for(String s : result ){
+			System.out.println(s);
+		}
 	}
 }
