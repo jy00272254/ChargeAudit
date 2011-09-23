@@ -13,6 +13,14 @@ public class ZB_CONSTANT {
 	public static final String 用户日报_FILENAME = "CD3G02??001.081";
 	public static List<String> 用户日报_SQL = new ArrayList<String>();
 	
+	//3G无线上网卡后付费产品日报
+	public static final String 无线上网卡后付费产品日报_FILENAME = "CD3G01??002.081";
+	public static List<String> 无线上网卡后付费产品日报_SQL = new ArrayList<String>();
+	
+	//3G业务使用类
+	public static final String 业务使用类_FILENAME = "CD3G03??001.081";
+	public static List<String> 业务使用类_SQL = new ArrayList<String>();
+	
 	static {
 		移动语音业务收入类日报_SQL.add(
 			"SELECT " +
@@ -144,6 +152,59 @@ public class ZB_CONSTANT {
 					"DEV_USERS "+
 				"FROM "+
 					"report.REPORT_D_ZB_DEV_D_3G_01_13 "+
+				"WHERE "+
+					"day_no=?"
+		);
+		
+		无线上网卡后付费产品日报_SQL.add(
+				"SELECT " +
+					"RECORD_TYPE," +
+					"CITY_NO," +
+					"ONNET_USERS," +
+					"DEV_USERS," +
+					"ACTIVE_USERS," +
+					"ONNET_NUM," +
+					"SMS_NUM," +
+					"DIS_CHARGE," +
+					"CALL_INCOME," +
+					"MONTH_ACTIVE_USERS "+
+				"FROM "+
+					"REPORT.REPORT_D_ZB_ZH_D_3G_02_02 "+
+				"WHERE "+
+					"day_no=?"
+		);
+		
+		//02记录
+		业务使用类_SQL.add(
+				"SELECT " +
+					"RECORD_TYPE," +
+					"CITY_NO," +
+					"DINNER_TYPE," +
+					"JF_TIMES," +
+					"CALL_DURATION," +
+					"CALL_NUMS," +
+					"decimal(round(dis_charge, 0),12,0) "+
+				"FROM "+
+					"REPORT.REPORT_D_USE_3G_01_02 "+
+				"WHERE "+
+					"day_no=?"
+		);
+		
+		// 03记录
+		业务使用类_SQL.add(
+				"SELECT " +
+					"record_type," +
+					"city_no," +
+					"pay_type," +
+					"product_type," +
+					"dinner_type," +
+					"time_level," +
+					"active_user," +
+					"dis_charge," +
+					"access_num," +
+					"sms_num "+
+				"FROM "+
+					"REPORT.REPORT_D_ZB_USE_3G_01_03 "+
 				"WHERE "+
 					"day_no=?"
 		);

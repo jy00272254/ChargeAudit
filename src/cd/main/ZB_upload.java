@@ -17,11 +17,11 @@ public class ZB_upload {
 		
 		GenFile gf = new GenFile();
 		List<String> filenames = gf.genMulti(
-						ZB_CONSTANT.用户日报_FILENAME, 	//文件名
-						ZB_CONSTANT.用户日报_SQL, 			//查询SQL
+						ZB_CONSTANT.业务使用类_FILENAME, 	//文件名
+						ZB_CONSTANT.业务使用类_SQL, 			//查询SQL
 						"a", 	// 正常/重传 A/B
 						"d",  // 日/月 D/M
-						"20110915", 	//起始日期
+						"20110921", 	//起始日期
 						"20110921");	//结束日期
 		
 		for(String filename : filenames){
