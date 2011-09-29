@@ -19,6 +19,7 @@ public class M_3g_7_3_1_4_sql_pre {
 	 * MID.MID_M_3G_USER
 	 * MID.MID_M_USER_SMS_GPRS_3G
 	 */
+	public static final String M_3g_7_3_1_4_01_PRE_SERVICENAME = "3G 7.3.1.4 无线上网卡业务量月报";
 	//DWD.DWD_D_USER_GPRS_STREAM_NEW
 	//这个验证日期是日 注意
 	public static final String M_3g_7_3_1_4_01_PRE_PROCNAME = "DWD.P_DWD_D_USER_GPRS_STREAM";

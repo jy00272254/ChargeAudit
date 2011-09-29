@@ -15,6 +15,7 @@ public class M_3g_7_2_1_6_sql_pre {
 	 * 
 	 * MID.MID_M_3G_USER_PROPERTY
 	 */
+	public static final String M_3g_7_2_1_6_PRE_SERVICENAME = "3G 7.2.1.6 定制专用无线上网卡发展月报";
 	public static final String M_3g_7_2_1_6_PRE_PROCNAME  = "MID.P_MID_M_3G_USER_PROPERTY";
 	public static final String M_3g_7_2_1_6_PRE  = headMID + "MID.P_MID_M_3G_USER_PROPERTY" + tail;
 

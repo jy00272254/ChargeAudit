@@ -17,6 +17,7 @@ public class M_2g_8_3_sql_pre {
 	 * MID.MID_M_BUSI_MOBILEUSER
 	 * 
 	 */
+	public static final String M_2g_8_3_01_PRE_SERVICENAME = "2G 8.3 综合指标二 ";
 	//MID.MID_M_USE_BILLS
 	public static final String M_2g_8_3_01_PRE_PROCNAME  = "MID.P_MID_M_USE_BILLS";
 	public static final String M_2g_8_3_01_PRE = headMID + "MID.P_MID_M_USE_BILLS" + tail;

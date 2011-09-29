@@ -21,6 +21,7 @@ public class M_3g_7_5_1_4_sql_pre {
 	 * MID.MID_M_V_USER_MOBILEUSER_3G_ZD
 	 * 
 	 */
+	public static final String M_3g_7_5_1_4_01_PRE_SERVICENAME = "3G 7.5.1.4 渠道数量类月报";
 	//MID.MID_M_V_USER_MOBILEUSER_3G_ZD
 	public static final String M_3g_7_5_1_4_01_PRE_PROCNAME = "MID.P_MID_M_V_USER_MOBILEUSER_3G_ZD";
 	public static final String M_3g_7_5_1_4_01_PRE = headMID + "MID.P_MID_M_V_USER_MOBILEUSER_3G_ZD" + tail;

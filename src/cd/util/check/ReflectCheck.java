@@ -24,7 +24,6 @@ public class ReflectCheck {
 	public boolean check(String className, String time, String note){
 		boolean preResult = true;
 		String tab = "	";
-		log.warn(tab+note);
 		LogCheck pm = new LogCheck();
 		try {
 			Map<String, String> procnames = new HashMap<String, String>();
@@ -34,11 +33,19 @@ public class ReflectCheck {
 			for (Field sqlsField : sqlsFields) {
 				String sql = (String) sqlsField.get(Class.forName(className).newInstance());
 				if (sqlsField.getName().endsWith("_PROCNAME")) {
+					//以 _PROCNAME 结尾表示存储过程名
 					procnames.put(sqlsField.getName(), sql);
+				} else if(sqlsField.getName().endsWith("_SERVICENAME")){
+					//以_SERVICENAME 结尾表示文件接口名
+					log.warn(tab+"业务名称:");
+					log.warn(tab+tab+sql);
 				} else {
+					// 否则表示查询语句
 					sqls.put(sqlsField.getName(), sql);
 				}
 			}
+			
+			log.warn(tab+note);
 			Set<String> keys = sqls.keySet();
 			for (String key : keys) {
 				int preFlag = 0;

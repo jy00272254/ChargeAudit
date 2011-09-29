@@ -17,6 +17,8 @@ public class M_2g_7_6_2_sql_pre {
 	 * MID.MID_M_INCO_CHARGE_MONTH
 	 * 
 	 */
+	
+	public static final String M_2g_7_6_2_01_PRE__SERVICENAME = "2G 7.6.2 渠道类综合统计";
 	//MID.MID_M_F_DEV_USER_3G
 	public static final String M_2g_7_6_2_01_PRE_PROCNAME  = "MID.P_MID_M_F_DEV_USER_3G";
 	public static final String M_2g_7_6_2_01_PRE  = headMID + "MID.P_MID_M_F_DEV_USER_3G" + tail;

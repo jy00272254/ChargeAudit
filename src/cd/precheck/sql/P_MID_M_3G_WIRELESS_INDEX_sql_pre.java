@@ -8,6 +8,7 @@ public class P_MID_M_3G_WIRELESS_INDEX_sql_pre {
 	/**
 	 * 需要先运行下面的存储过程,先对它进行运行前检测. MID.P_MID_M_3G_WIRELESS_INDEX
 	 */
+	public static final String P_MID_M_3G_WIRELESS_INDEX_03_PRE_SERVICENAME = "3G 前置过程,需要手动跑";
 	public static final String P_MID_M_3G_WIRELESS_INDEX_01_PRE_PROCNAME = "MID.P_MID_M_3G_USER_PROPERTY";
 	public static final String P_MID_M_3G_WIRELESS_INDEX_01_PRE = headMID + "MID.P_MID_M_3G_USER_PROPERTY" + tail;
 	public static final String P_MID_M_3G_WIRELESS_INDEX_02_PRE_PROCNAME = "MID.P_MID_M_USER_CHARGE_SECOND_HOR";

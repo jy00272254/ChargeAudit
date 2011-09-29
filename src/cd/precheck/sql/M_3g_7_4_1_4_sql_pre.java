@@ -18,6 +18,7 @@ public class M_3g_7_4_1_4_sql_pre {
 	 * MID.MID_M_INCO_CHARGE_MONTH
 	 * MID.MID_M_USER_CHARGE_SECOND_HOR
 	 */
+	public static final String M_3g_7_4_1_4_01_PRE_SERVICENAME = "3G 7.4.1.4 无线上网卡收入";
 	//MID.MID_M_3G_USER
 	public static final String M_3g_7_4_1_4_01_PRE_PROCNAME = "MID.P_MID_M_3G_USER"; 
 	public static final String M_3g_7_4_1_4_01_PRE = headMID + "MID.P_MID_M_3G_USER" + tail;

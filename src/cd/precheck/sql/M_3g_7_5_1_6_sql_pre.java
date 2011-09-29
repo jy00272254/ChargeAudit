@@ -21,6 +21,7 @@ public class M_3g_7_5_1_6_sql_pre {
 	 * MID.MID_M_USER_CHARGE_SECOND_HOR
 	 * 
 	 */
+	public static final String M_3g_7_5_1_6_01_PRE_SERVICENAME = "3G 7.5.1.6 渠道佣金类月报";
 	//MID.MID_M_V_USER_MOBILEUSER_3G_ZD
 	public static final String M_3g_7_5_1_6_01_PRE_PROCNAME = "MID.P_MID_M_V_USER_MOBILEUSER_3G_ZD";
 	public static final String M_3g_7_5_1_6_01_PRE = headMID + "MID.P_MID_M_V_USER_MOBILEUSER_3G_ZD" + tail;

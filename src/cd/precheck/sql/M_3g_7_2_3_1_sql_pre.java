@@ -23,10 +23,10 @@ public class M_3g_7_2_3_1_sql_pre {
 	public static final String M_3g_7_2_3_1_01_PRE_PROCNAME =  "MID.P_MID_M_3G_USER";
 	public static final String M_3g_7_2_3_1_01_PRE =  headMID + "MID.P_MID_M_3G_USER" + tail;
 	//MID.MID_M_INCO_CHARGE_MONTH
-	public static final String M_3g_7_2_3_1_02_PRE_PROCNAME =  "MID.P_MID_M_3G_USER";
+	public static final String M_3g_7_2_3_1_02_PRE_PROCNAME =  "MID.P_MID_M_INCO_CHARGE_MONTH";
 	public static final String M_3g_7_2_3_1_02_PRE =  headMID + "MID.P_MID_M_INCO_CHARGE_MONTH" + tail;
 	//MID.MID_M_F_DEV_USER_3G
-	public static final String M_3g_7_2_3_1_03_PRE_PROCNAME =  "MID.P_MID_M_3G_USER";
+	public static final String M_3g_7_2_3_1_03_PRE_PROCNAME =  "MID.P_MID_M_F_DEV_USER_3G";
 	public static final String M_3g_7_2_3_1_03_PRE =  headMID + "MID.P_MID_M_F_DEV_USER_3G" + tail;
 
 }

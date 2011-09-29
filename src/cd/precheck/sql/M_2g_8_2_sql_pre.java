@@ -23,6 +23,7 @@ public class M_2g_8_2_sql_pre {
 	 * MID.MID_M_USE_BILLS
 	 * 
 	 */
+	public static final String M_2g_8_2_01_PRE_SERVICENAME = "2G 8.2 综合指标一";
 	//MID.MID_M_F_DEV_USER_3G
 	public static final String M_2g_8_2_01_PRE_PROCNAME  = "MID.P_MID_M_F_DEV_USER_3G";
 	public static final String M_2g_8_2_01_PRE = headMID + "MID.P_MID_M_F_DEV_USER_3G" + tail;

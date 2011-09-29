@@ -1,8 +1,6 @@
 package cd.main;
 
 import java.util.List;
-
-import cd.ftp.Client;
 import cd.zb.GenFile;
 import cd.zb.ZB_CONSTANT;
 
