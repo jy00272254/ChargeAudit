@@ -35,7 +35,7 @@ public class GenJDXX_excel {
 		log.warn("产生值班需要的家电下乡EXCEL文件,文件名为:  省分公司“家电下乡”统计表.xls");
 
 		//需要统计的日期
-		String time = "20110724";
+		String time = "20111003";
 		//目的文件名
 		String dstFilename = "c:\\省分公司“家电下乡”统计表.xls";
 		//源文件名
@@ -107,7 +107,9 @@ public class GenJDXX_excel {
 				+ "day_call_users \"日通话用户数\","
 				+ "month_call_users \"月通话用户数\"   "
 				+ "FROM REPORT.REPORT_D_SC_JDXX  " + "where acct_day= '" + time + "'";
-
+		
+		System.out.println(sql);
+		
 		String day_dev_users = null; // 日发展
 		String day_fee = null; // 日收入
 		String day_pay_unit = null; // 通话时长

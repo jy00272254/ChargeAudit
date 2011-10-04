@@ -1,6 +1,7 @@
 package cd.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
 "LOGDATE"     VARCHAR(10),
@@ -21,6 +22,10 @@ public class P_Log implements Serializable {
 	private String logDate;
 	//存储过程名
 	private String procname;
+	//开始时间
+	private Date BEGIN_DATE;
+	//结束时间
+	private Date END_DATE;
 	//标志
 	private String flag;
 	//过程运行时间
@@ -59,9 +64,23 @@ public class P_Log implements Serializable {
 		this.note = note;
 	}
 	
+	public Date getBEGIN_DATE() {
+		return BEGIN_DATE;
+	}
+	public void setBEGIN_DATE(Date bEGIN_DATE) {
+		BEGIN_DATE = bEGIN_DATE;
+	}
+	public Date getEND_DATE() {
+		return END_DATE;
+	}
+	public void setEND_DATE(Date eND_DATE) {
+		END_DATE = eND_DATE;
+	}
+	
 	@Override
 	public String toString() {
 		return "P_Log [logDate=" + logDate + ", procname=" + procname
+				+ ", BEGIN_DATE=" + BEGIN_DATE + ", END_DATE=" + END_DATE
 				+ ", flag=" + flag + ", duration=" + duration + ", note="
 				+ note + "]";
 	}

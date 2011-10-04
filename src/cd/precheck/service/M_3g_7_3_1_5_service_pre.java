@@ -28,7 +28,7 @@ public class M_3g_7_3_1_5_service_pre {
 	
 	public static void main(String[] args) {
 		M_3g_7_3_1_5_service_pre _7315 = new M_3g_7_3_1_5_service_pre();
-		boolean result = _7315.precheck("201108");
+		boolean result = _7315.precheck("201109");
 		log.warn(result);
 	}
 }

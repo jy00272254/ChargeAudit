@@ -18,7 +18,7 @@ public class M_3g_7_2_1_5_sql_pre {
 	 * 		过程名必须以 _PROCNAME 结束
 	 * 		SQL必须以_PRE 结束
 	 */
-	public static final String M_3g_7_2_1_5_01_PRE_SERVICENAME ="3G 7.2.1.5 无线上网卡业务";
+	public static final String M_3g_7_2_1_5_PRE_SERVICENAME ="3G 7.2.1.5 无线上网卡业务";
 	
 	public static final String M_3g_7_2_1_5_01_PRE_PROCNAME = "MID.P_MID_M_3G_WIRELESS_INDEX";
 	public static final String M_3g_7_2_1_5_01_PRE = headMID + "MID.P_MID_M_3G_WIRELESS_INDEX" + tail;
@@ -28,8 +28,6 @@ public class M_3g_7_2_1_5_sql_pre {
 	public static final String M_3g_7_2_1_5_03_PRE = headMID + "MID.P_MID_M_3G_NETWORK_CARD" + tail;
 	public static final String M_3g_7_2_1_5_04_PRE_PROCNAME = "MID.P_MID_M_3G_USER";
 	public static final String M_3g_7_2_1_5_04_PRE = headMID + "MID.P_MID_M_3G_USER" + tail;
-	public static final String M_3g_7_2_1_5_05_PRE_PROCNAME = "MID.P_MID_M_3G_WIRELESS_INDEX";
-	public static final String M_3g_7_2_1_5_05_PRE = headMID + "MID.P_MID_M_3G_WIRELESS_INDEX" + tail;
 
 	
 }

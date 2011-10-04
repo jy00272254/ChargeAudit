@@ -80,12 +80,57 @@ public class GetTime {
 		}
 	}
 	
+	/**
+	 * 获取传入时间 area 范围内的时间列表
+	 * @param from
+	 * @param area
+	 * @param m_d
+	 * @return
+	 */
+	public static List<String> fromTo(String from, int area, String m_d){
+		String to = null;
+		List<String> result = null;
+		try {
+			area = area < 0 ? ++area : --area;
+			if(TimeFormat.MONTH.equals(m_d.toUpperCase())){
+				SimpleDateFormat sdf = new SimpleDateFormat(CURRMONTH);
+				sdf.parse(from);
+				Calendar fc = new GregorianCalendar(
+						Integer.valueOf(from.substring(0, 4)),
+						Integer.valueOf(from.substring(4, 6)) - 1 + area,
+						1);
+				to = sdf.format(new Date(fc.getTimeInMillis()));
+			}else{
+				SimpleDateFormat sdf = new SimpleDateFormat(TODAY1);
+				sdf.parse(from);
+				Calendar fc = new GregorianCalendar(
+						Integer.valueOf(from.substring(0, 4)),
+						Integer.valueOf(from.substring(4, 6)) - 1,
+						Integer.valueOf(from.substring(6, 8)) + area);
+				to = sdf.format(new Date(fc.getTimeInMillis()));
+			}
+			result = area < 0 ? fromTo(to, from, m_d) : fromTo(from, to, m_d);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			log.error("参数错误!");
+			return null;
+		}
+		return result;
+	}
+	
+	/**
+	 * 获取从 from 到 to 时间范围内的时间
+	 * @param from
+	 * @param to
+	 * @param m_d
+	 * @return
+	 */
 	public static List<String> fromTo(String from, String to, String m_d){
 		List<String> result = null;
 		try {
 			result = new ArrayList<String>();
 			
-			if("M".equals(m_d.toUpperCase())){
+			if(TimeFormat.MONTH.equals(m_d.toUpperCase())){
 				SimpleDateFormat sdf = new SimpleDateFormat(CURRMONTH);
 				sdf.parse(from);
 				sdf.parse(to);

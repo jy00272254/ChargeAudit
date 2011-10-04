@@ -19,6 +19,7 @@ public class M_3g_7_2_3_1_sql_pre {
 	 * DIM.DIM_INFO_OFFICE_TRUE
 	 * DIM.DIM_WORK_OFFICETRUE_OFFICE
 	 */
+	public static final String M_3g_7_2_3_1_PRE_SERVICENAME = "3G 7.2.3.1 渠道发展类统计";
 	//MID.MID_M_3G_USER
 	public static final String M_3g_7_2_3_1_01_PRE_PROCNAME =  "MID.P_MID_M_3G_USER";
 	public static final String M_3g_7_2_3_1_01_PRE =  headMID + "MID.P_MID_M_3G_USER" + tail;

@@ -19,9 +19,9 @@ public class M_3g_7_5_1_6_service_pre {
 
 		ReflectCheck rc = new ReflectCheck();
 		//检测当前存储过程是否能运行
-		flag =rc.check("cd.precheck.sql.M_3g_7_5_1_5_sql_pre", time, "前置依赖:");
+		flag =rc.check("cd.precheck.sql.M_3g_7_5_1_6_sql_pre", time, "前置依赖:");
 		//只是显示当前存储过程的执行状态
-		rc.check("cd.check.sql.M_3g_7_5_1_5_sql", time, "当前状态:");
+		rc.check("cd.check.sql.M_3g_7_5_1_6_sql", time, "当前状态:");
 
 		return flag;
 	}

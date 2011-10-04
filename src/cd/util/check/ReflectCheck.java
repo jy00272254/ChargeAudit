@@ -49,14 +49,53 @@ public class ReflectCheck {
 			Set<String> keys = sqls.keySet();
 			for (String key : keys) {
 				int preFlag = 0;
+				int avgDuration = 0;
+				String begin_time = null;
+				String end_time = null;
+				String timeFormat = null;
 				//首先判断是不是日表,根据公司定义的规则,如果是日表那么必定会出现这个字段 "_D_"
 				// 通过正则表达式匹配.如果包含则转为日验证
 				if(procnames.get(key + "_PROCNAME").matches(".*?_D_.*?")){
-					preFlag = pm.check(TimeFormat.DAY, time, sqls.get(key));
+					timeFormat = TimeFormat.DAY;
 				}else{
-					preFlag = pm.check(time, sqls.get(key));
+					timeFormat = TimeFormat.MONTH;
 				}
-				log.warn(tab+tab+procnames.get(key + "_PROCNAME") + tab+ tab + LogCheck.getStatus(preFlag));
+				// 获取运行结果
+				preFlag = pm.check(timeFormat, time, sqls.get(key));
+				// 获取运行平均时间
+				avgDuration = pm.avgDuration(timeFormat, time, sqls.get(key));
+				// 获取开始时间
+				begin_time = pm.begin_time(timeFormat, time, sqls.get(key));
+				// 获取结束时间
+				end_time = pm.end_time(timeFormat, time, sqls.get(key));
+				
+				switch(preFlag){
+				//执行成功
+				case 1:
+					log.warn(tab+tab+
+							procnames.get(key + "_PROCNAME") + tab+ tab + 
+							LogCheck.getStatus(preFlag) + tab + 
+							avgDuration + tab +
+							begin_time + tab +
+							end_time);
+					break;
+				//正在执行中
+				case 2:
+					log.warn(tab+tab+
+							procnames.get(key + "_PROCNAME") + tab+ tab + 
+							LogCheck.getStatus(preFlag) + tab + 
+							avgDuration + tab +
+							begin_time);
+					break;
+				// 其他情况
+				default:
+					log.warn(tab+tab+
+							procnames.get(key + "_PROCNAME") + tab+ tab + 
+							LogCheck.getStatus(preFlag) + tab + 
+							avgDuration);
+					break;
+				}
+				
 				preResult = preResult && preFlag == 1;
 			}
 		} catch (SecurityException e) {

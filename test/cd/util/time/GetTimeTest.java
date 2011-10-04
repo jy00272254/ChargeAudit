@@ -28,7 +28,15 @@ public class GetTimeTest {
 	
 	@Test
 	public void testFromTo(){
-		List<String> result = GetTime.fromTo("201108", "201205", "m");
+		List<String> result = GetTime.fromTo("20110801", "20110901", TimeFormat.DAY);
+		for(String s : result ){
+			System.out.println(s);
+		}
+	}
+	
+	@Test
+	public void testFromTo1(){
+		List<String> result = GetTime.fromTo("20110801", -5, TimeFormat.MONTH);
 		for(String s : result ){
 			System.out.println(s);
 		}
