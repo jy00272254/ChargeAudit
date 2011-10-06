@@ -24,6 +24,28 @@ public class Test {
 		
 		System.out.println(c.getTimeInMillis());
 		
+		
+		String querySql = 
+			"SELECT " +
+				"a.city_no a_city_no," +
+				"a.dinner_type a_dinner_type, " +
+				"a.total_active_users a_total_active_users," +
+				"b.city_no b_city_no," +
+				"b.dinner_type b_dinner_type, " +
+				"b.total_active_users b_total_active_users " +
+			"FROM 	" +
+			"(SELECT city_no,dinner_type,total_active_users " +
+			"FROM REPORT.REPORT_D_ZB_DEV_3G_01_02 	" +
+			"WHERE day_no = ?) a " +
+			"INNER JOIN " +
+			"(SELECT city_no,dinner_type,total_active_users " +
+			"FROM REPORT.REPORT_D_ZB_DEV_3G_01_02 	" +
+			"WHERE day_no = ?) b " +
+			"ON a.dinner_type=b.dinner_type and a.city_no=b.city_no " +
+			"WHERE a.total_active_users > b.total_active_users";
+		
+		System.out.println(querySql);
+
 //		ProcId.all();
 		
 //		System.out.println(13186998 - 13186998);
