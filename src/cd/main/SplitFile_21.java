@@ -27,14 +27,15 @@ public class SplitFile_21 {
 			"内江", "宜宾", "自贡", "眉山", "达州", "遂宁", "南充", "广安", "绵阳", "德阳", "广元",
 			"巴中", "甘孜", "阿坝", "资阳" };
 	private static Map<String, String> area_no_name_pair = new HashMap<String, String>();
+	private static Map<String, Integer> area_no_rows = new HashMap<String, Integer>();
 	
 	private static int splitRecord = 0;
 	private static Map<String, BufferedWriter> targetFiles = null;
 	
 	public static void main(String[] args) {
 
-		String srcName = "c:\\短信包.txt";
-		String targetPath = "c:\\短信包";
+		String srcName = "c:\\全家乐.TXT";
+		String targetPath = "c:\\全家乐";
 
 		long startTime = System.currentTimeMillis();
 		int totalRecord = 0;
@@ -90,8 +91,13 @@ public class SplitFile_21 {
 			System.out.println(" 耗时 :  " + (System.currentTimeMillis() - startTime) + " ms");
 			System.out.println(" 读取到总记录数: " + totalRecord);
 			System.out.println(" 写入的记录数: " + splitRecord);
+			
+			Set<String> keys = area_no_rows.keySet();
+			for(String key : keys){
+				System.out.println(key + "		" + area_no_rows.get(key));
+			}
 		}
-
+		
 	}
 
 	/**
@@ -110,6 +116,7 @@ public class SplitFile_21 {
 					targetFiles.get(area_no_name_pair.get(getAreaInfo(srcStr))).write(srcStr, 0, srcStr.length());
 					targetFiles.get(area_no_name_pair.get(getAreaInfo(srcStr))).newLine();
 					splitRecord++;
+					area_no_rows.put(getAreaInfo(srcStr), area_no_rows.get(getAreaInfo(srcStr))+ 1);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -262,5 +269,27 @@ public class SplitFile_21 {
 		area_no_name_pair.put("甘孜", "甘孜");
 		area_no_name_pair.put("阿坝", "阿坝");
 		area_no_name_pair.put("资阳", "资阳");
+		
+		area_no_rows.put("成都", 0);
+		area_no_rows.put("雅安", 0);
+		area_no_rows.put("凉山",0);
+		area_no_rows.put("攀枝花", 0);
+		area_no_rows.put("乐山", 0);
+		area_no_rows.put("泸州", 0);
+		area_no_rows.put("内江", 0);
+		area_no_rows.put("宜宾", 0);
+		area_no_rows.put("自贡", 0);
+		area_no_rows.put("眉山", 0);
+		area_no_rows.put("达州", 0);
+		area_no_rows.put("遂宁", 0);
+		area_no_rows.put("南充", 0);
+		area_no_rows.put("广安", 0);
+		area_no_rows.put("绵阳", 0);
+		area_no_rows.put("德阳", 0);
+		area_no_rows.put("广元", 0);
+		area_no_rows.put("巴中", 0);
+		area_no_rows.put("甘孜", 0);
+		area_no_rows.put("阿坝", 0);
+		area_no_rows.put("资阳", 0);
 	}
 }

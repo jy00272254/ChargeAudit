@@ -28,7 +28,7 @@ public class TestChange {
 			"set call_fee=?,incr_fee=?,rent_fee=? " +
 			"where acct_day = ? and call_fee=? and incr_fee=? and rent_fee=?";
 		String time = "20110908";
-		double range = 300000;
+		double range = 700000;
 		
 		Connection conn = DB2Factory.getConn();
 		

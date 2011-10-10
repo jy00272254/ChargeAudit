@@ -45,7 +45,7 @@ public class TestChange3 {
 			"SET onnet_users=? " +
 			"WHERE day_no = ? AND dinner_type = ? and city_no = ?";
 		
-		List<String> times = GetTime.fromTo("20110903", "20110924", TimeFormat.DAY);
+		List<String> times = GetTime.fromTo("20110926", "20110930", TimeFormat.DAY);
 		
 		Connection conn = DB2Factory.getConn();
 		

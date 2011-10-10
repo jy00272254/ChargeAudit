@@ -15,7 +15,7 @@ public class AutoCheckIn {
 		log.warn("自动打卡监控开始.....");
 		while(true){
 			
-			if(System.currentTimeMillis() >= 1317515400687l){
+			if(System.currentTimeMillis() >= 1318120200484l){
 				log.warn("时间满足要求,打卡开始....");
 				DefaultHttpClient httpClient = new DefaultHttpClient();
 				new Client(httpClient, "chengding", "123456").checkIn();
