@@ -1,34 +1,67 @@
-package cd.main;
+package cd.main.adjust;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import cd.bean.Income_2G;
 import cd.db2.DB2Factory;
 
 /**
- * !!!!!!!!! 25号后有地市维度,注意
  * 调整2G收入
  * @author Administrator
  *
+ *扩展思路: 
+ *	1.写成单个方法,循环调用.
+ *	2.修正正负偏转
+ *	3.添加最终运行语句,设置总费用等于其他费用之和
+ *
+ *2011-11-07 已经修改了
+ *
  */
-public class TestChange {
-
+public class Adjust2GIncome {
+	
+	private final String querySql = 
+		"SELECT ACCT_DAY,call_fee,incr_fee,rent_fee,call_fee+incr_fee+rent_fee LAST_JF_FEE,JF_FEE " +
+		"FROM REPORT.REPORT_D_ZB_INCO_YY_BILL_TOT " +
+		"WHERE ACCT_DAY = ?";
+	private final String updateSql = 
+		"update REPORT.REPORT_D_ZB_INCO_YY_BILL_TOT " + 
+		"set call_fee=?,incr_fee=?,rent_fee=? " +
+		"where acct_day = ? and call_fee=? and incr_fee=? and rent_fee=?";
+	private final String finalSql =
+		"UPDATE REPORT.REPORT_D_ZB_INCO_YY_BILL_TOT " +
+		"SET JF_FEE = CALL_FEE+INCR_FEE+RENT_FEE " +
+		"WHERE ACCT_DAY = ?";
+	
 	public static void main(String[] args) {
-		String querySql = 
-			"SELECT ACCT_DAY,call_fee,incr_fee,rent_fee,call_fee+incr_fee+rent_fee LAST_JF_FEE,JF_FEE " +
-			"FROM REPORT.REPORT_D_ZB_INCO_YY_BILL_TOT " +
-			"WHERE ACCT_DAY = ?";
-		String updateSql = 
-			"update REPORT.REPORT_D_ZB_INCO_YY_BILL_TOT " + 
-			"set call_fee=?,incr_fee=?,rent_fee=? " +
-			"where acct_day = ? and call_fee=? and incr_fee=? and rent_fee=?";
-		String time = "20110908";
-		double range = 700000;
+		
+		Adjust2GIncome a2i = new Adjust2GIncome();
+		
+		String time = "20111019";
+		double range = -850000;
+		a2i.adjust(time, range);
+		
+		Map<String, Double> maps = new HashMap<String, Double>();
+		maps.put("20111019", -850000d);
+		a2i.adjust(maps);
+		
+	}
+	
+	private void adjust(Map<String, Double> maps){
+		Set<String> keys = maps.keySet();
+		for(String key : keys){
+			adjust(key, maps.get(key));
+		}
+	}
+	
+	private void adjust(String time, double range){
 		
 		Connection conn = DB2Factory.getConn();
 		
@@ -57,6 +90,7 @@ public class TestChange {
 				total_jf_fee += income.getLast_jf_fee();
 			}
 			
+			//更新调整后费用
 			for(Income_2G income : incomes){
 				double percent = income.getLast_jf_fee()/total_jf_fee;
 				double dataChange = percent * range;
@@ -69,16 +103,15 @@ public class TestChange {
 				
 				double percentRent_fee = income.getRent_fee()/income.getLast_jf_fee();
 				int dataChangeRent_fee = (int) (percentRent_fee * dataChange);
-				//				System.out.println(percent + " -- " + percentCall_fee + " -- " +percentIncr_fee + " -- " + percentRent_fee);
-//				System.out.println(dataChange + " -- " + dataChangeCall_fee + " -- " +dataChangeIncr_fee + " -- " + dataChangeRent_fee);
+				
 				double call_fee = income.getCall_fee();
 				double incr_fee = income.getIncr_fee();
 				double rent_fee = income.getRent_fee();
 				
 				ps = conn.prepareStatement(updateSql);
-				ps.setDouble(1, call_fee - dataChangeCall_fee);
-				ps.setDouble(2, incr_fee - dataChangeIncr_fee);
-				ps.setDouble(3, rent_fee - dataChangeRent_fee);
+				ps.setDouble(1, call_fee + dataChangeCall_fee);
+				ps.setDouble(2, incr_fee + dataChangeIncr_fee);
+				ps.setDouble(3, rent_fee + dataChangeRent_fee);
 				ps.setString(4, time);
 				ps.setDouble(5, call_fee);
 				ps.setDouble(6, incr_fee);
@@ -86,6 +119,10 @@ public class TestChange {
 				ps.executeUpdate();
 			}
 			
+			//更新总和费用
+			ps =  conn.prepareStatement(finalSql);
+			ps.setString(1, time);
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally{

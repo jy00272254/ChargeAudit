@@ -1,4 +1,4 @@
-package cd.main;
+package cd.main.adjust;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

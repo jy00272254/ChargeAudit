@@ -34,8 +34,8 @@ public class SplitFile_21 {
 	
 	public static void main(String[] args) {
 
-		String srcName = "c:\\全家乐.TXT";
-		String targetPath = "c:\\全家乐";
+		String srcName = "c:\\短信包.txt";
+		String targetPath = "c:\\短信包";
 
 		long startTime = System.currentTimeMillis();
 		int totalRecord = 0;

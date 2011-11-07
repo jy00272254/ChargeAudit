@@ -27,7 +27,7 @@ public class M_2g_7_6_2_service_pre {
 	}
 	
 	public static void main(String[] args) {
-		String time = "201108";
+		String time = "201110";
 		boolean result = false;
 
 		M_2g_7_6_2_service_pre _2g762 = new M_2g_7_6_2_service_pre();

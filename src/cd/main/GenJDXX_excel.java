@@ -35,7 +35,7 @@ public class GenJDXX_excel {
 		log.warn("产生值班需要的家电下乡EXCEL文件,文件名为:  省分公司“家电下乡”统计表.xls");
 
 		//需要统计的日期
-		String time = "20111008";
+		String time = "20111024";
 		//目的文件名
 		String dstFilename = "c:\\省分公司“家电下乡”统计表.xls";
 		//源文件名
