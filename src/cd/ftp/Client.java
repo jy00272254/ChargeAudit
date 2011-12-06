@@ -14,8 +14,6 @@ import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.log4j.Logger;
 
-import cd.main.ZB_upload;
-
 /**
  * 用于连接FTP服务器,上传文件
  * @author Administrator
@@ -159,6 +157,24 @@ public class Client {
 		}
 	}
 	
+	public String[] listNames(){
+		String[] result = null;
+		try {
+			result = ftpClient.listNames();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public void changeWorkingDirectory(String pathname){
+		try {
+			ftpClient.changeWorkingDirectory(pathname);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * 关闭连接
 	 */
@@ -173,9 +189,9 @@ public class Client {
 	
 	public static void main(String[] args) {
 //		Client client = new Client("10.213.9.183", "root", "y4yhl9t");
-		Client client = new Client("10.213.9.183", "root", "y4yhl9t");
+		Client client = new Client("10.213.9.181", "anonymous", "");
 //		client.upload("/", "1111.doc", "1111.doc");
-		client.download("/", "1111.doc");
+		client.download("/", "openvpn-2.0.9-gui-1.0.3-install.rar");
 		client.disconnect();
 	}
 

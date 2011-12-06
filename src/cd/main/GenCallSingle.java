@@ -14,11 +14,11 @@ public class GenCallSingle {
 
 	public static void main(String[] args) {
 		//存储过程名
-		String procname = "DM.P_DM_D_3G_WIRELESS";
+		String procname = "DM.P_DM_D_INTER_CALL";
 		//开始日期
-		String begin = "20110101";
+		String begin = "20110701";
 		//结束日期
-		String end = "20111026";
+		String end = "20111122";
 		//日期类型 年 y 月 m 日 d
 		String type = "d";
 		sysoutCall(begin, end, procname, type);

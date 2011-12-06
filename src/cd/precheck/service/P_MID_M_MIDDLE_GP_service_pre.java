@@ -22,7 +22,7 @@ public class P_MID_M_MIDDLE_GP_service_pre {
 	
 	public static void main(String[] args) {
 		P_MID_M_MIDDLE_GP_service_pre _3g82 = new P_MID_M_MIDDLE_GP_service_pre();
-		boolean result = _3g82.precheck("201110");
+		boolean result = _3g82.precheck("201111");
 		log.warn(result);
 	}
 }

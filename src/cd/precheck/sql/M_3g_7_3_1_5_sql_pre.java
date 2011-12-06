@@ -20,7 +20,7 @@ public class M_3g_7_3_1_5_sql_pre {
 	 * MID.MID_M_USER_CHARGE_SECOND_HOR
 	 */
 	
-	public static final String M_3g_7_3_1_5_01_PRE_SERVICENAME = "3G 7.3.1.5 定制专用无线上网卡业务量月报";
+	public static final String M_3g_7_3_1_5_01_PRE_SERVICENAME = "3G 7.3.1.5 定制专用无线上网卡业务量月报 -- 不用跑过程,直接补0数据";
 	//MID.MID_M_3G_USER
 	public static final String M_3g_7_3_1_5_01_PRE_PROCNAME =  "MID.P_MID_M_3G_USER";
 	public static final String M_3g_7_3_1_5_01_PRE =  headMID + "MID.P_MID_M_3G_USER" + tail;
